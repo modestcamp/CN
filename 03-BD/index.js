@@ -19,6 +19,42 @@ server.get('/', (req, res) => {
     res.json({ message: 'Hello World'});
 });
 
+
+// CREATE 
+
+server.post('/api/pets', (req, res) => {
+    res.status(201).json({});
+});
+
+// READ (ALL)
+
+server.get('/api/pets', (req,res) => {
+    res.status(200).json({});
+});
+
+// READ (ONE)
+
+ server.get('/api/pets/:id', (req, res) => {
+     const { id} = req.params;
+
+     res.status(200).json({});
+ });
+
+// UPDATE 
+
+server.get('/api/pets/:id', (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    res.status(200).json({});
+});
+
+// DELETE 
+
+server.get('/api/pets/:id', (req, res) => {
+    const { id } = req.params;
+    res-status(204).json({});
+})
+
 server.listen(PORT, ()=> console.log(`Listening on ${PORT}`))
 
 
