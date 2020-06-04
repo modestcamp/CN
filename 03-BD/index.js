@@ -12,6 +12,28 @@ mongoose.connect(MONGO_URI, {
     .then(()=> console.log('Conexion exitosa'))
     .catch(()=>console.log('Error en la conexion'));
 
+// Mongoose es un ODM -> Object Document Mapping
+// pets.create pets.find // pets es un MODELO
+// Crear un modelo require de un ESQUEMA
+
+const petsSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    breed: String,
+    sex: String,
+    weight: Number,
+    type: {
+        type: String,
+        required: true,
+    },
+    vaccine: [String],
+});
+
+const Pets = mongoose.model('Pets', petsSchema);
+
+
 server.use(express.urlencoded({extended: true}));
 server.use(express.json({ extended: true}));
 
@@ -23,13 +45,20 @@ server.get('/', (req, res) => {
 // CREATE 
 
 server.post('/api/pets', (req, res) => {
+    const { body } = req;
+    Pets.create(body)
+    .then(pet => res.status(201).json({ pet }))
+    .catch(err => res.status(400).json({ err }));
     res.status(201).json({});
 });
 
 // READ (ALL)
 
-server.get('/api/pets', (req,res) => {
-    res.status(200).json({});
+server.post('/api/pets', (req, res) => {
+    Pets.find(body)
+    .then(pet => res.status(200).json({ pet }))
+    .catch(err => res.status(400).json({ err }));
+    res.status(201).json({});
 });
 
 // READ (ONE)
@@ -42,10 +71,11 @@ server.get('/api/pets', (req,res) => {
 
 // UPDATE 
 
-server.get('/api/pets/:id', (req, res) => {
-    const { id } = req.params;
-    const { body } = req;
-    res.status(200).json({});
+server.post('/api/pets', (req, res) => {
+    Pets.find(body)
+    .then(pet => res.status(200).json({ pet }))
+    .catch(err => res.status(400).json({ err }));
+    res.status(201).json({});
 });
 
 // DELETE 
