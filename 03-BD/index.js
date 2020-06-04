@@ -15,6 +15,7 @@ mongoose.connect(MONGO_URI, {
 // Mongoose es un ODM -> Object Document Mapping
 // pets.create pets.find // pets es un MODELO
 // Crear un modelo require de un ESQUEMA
+// vvvv
 
 const petsSchema = new mongoose.Schema({
     name: {
